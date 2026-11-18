@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>GU Medical Record</title>
+<meta name="theme-color" content="#f5f9ff">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+<style>
+:root{--bg:#f3f8ff;--card:#fff;--tx:#1d2a4d;--mu:#6b7a9c;--br:#e2ebf9;--pr:#4f8cff;--pr2:#e6f0ff;--wn:#b7791f;--wb:#fff3d1;--dg:#d64545;--db:#ffe9e9;--ok:#1f9d6b;--ob:#d9f7ea;--sh:0 8px 24px rgba(79,140,255,.10);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+*{box-sizing:border-box}
+body{margin:0;color:var(--tx);font:15px/1.5 "Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;padding-bottom:104px;background:radial-gradient(900px 420px at 5% -10%,#d8e8ff 0,transparent 60%),radial-gradient(700px 420px at 100% 0,#dff4ff 0,transparent 55%),#f5f9ff;background-attachment:fixed}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:rgba(245,249,255,.9);backdrop-filter:blur(14px);z-index:10}
+header{position:sticky;top:env(safe-area-inset-top,0px);background:rgba(255,255,255,.78);backdrop-filter:blur(14px);border-bottom:1px solid var(--br);padding:10px 16px;z-index:9;display:flex;justify-content:space-between;align-items:center}
+.brand{display:flex;gap:10px;align-items:center}
+.logo{width:36px;height:36px;border-radius:11px;background:linear-gradient(135deg,#5b9bff,#8fd3ff);display:grid;place-items:center;box-shadow:0 6px 14px rgba(79,140,255,.35);animation:float 5s ease-in-out infinite}
+.logo svg{width:20px;height:20px;stroke:#fff;fill:none;stroke-width:2.4;stroke-linecap:round}
+header b{font-size:15px;display:block;line-height:1.2}header small{color:var(--mu);font-size:11px}
+.av{background:var(--pr2);color:var(--pr);font-weight:700;font-size:12px;padding:6px 12px;border-radius:999px}
+main{max-width:760px;margin:0 auto;padding:16px}
+#app>*{animation:up .55s cubic-bezier(.2,.8,.2,1) both}
+h2{font-size:20px;margin:6px 0 14px;letter-spacing:-.3px}h3{font-size:14px;margin:18px 0 8px;color:var(--pr)}
+.card{background:var(--card);border:1px solid var(--br);border-radius:18px;padding:16px;margin-bottom:14px;box-shadow:var(--sh);transition:transform .25s,box-shadow .25s}
+.card:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(79,140,255,.16)}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+@media(min-width:560px){.grid.g3{grid-template-columns:repeat(3,1fr)}}
+.stat{position:relative;overflow:hidden;background:var(--card);border:1px solid var(--br);border-radius:18px;padding:14px;box-shadow:var(--sh);transition:transform .25s}
+.stat:hover{transform:translateY(-3px) scale(1.02)}
+.stat::after{content:"";position:absolute;right:-18px;top:-18px;width:64px;height:64px;border-radius:50%;background:#d3e4ff;opacity:.7}
+.stat:nth-child(3n+2)::after{background:#d4f5e8}.stat:nth-child(3n)::after{background:#e6defc}
+.stat b{font-size:28px;display:block;letter-spacing:-.5px;position:relative}.stat span{color:var(--mu);font-size:12px;position:relative}
+.hero{position:relative;overflow:hidden;border-radius:24px;padding:22px;color:#fff;background:linear-gradient(135deg,#5b9bff 0%,#7cc4ff 60%,#a3e3ff 100%);margin-bottom:14px;box-shadow:0 16px 32px rgba(79,140,255,.3)}
+.hero>*{position:relative;z-index:1}.hero h1{margin:0;font-size:24px;letter-spacing:-.5px}.hero p{margin:4px 0 16px;opacity:.92}
+.hero::before,.hero::after{content:"";position:absolute;border-radius:50%;background:rgba(255,255,255,.22);animation:float 7s ease-in-out infinite}
+.hero::before{width:140px;height:140px;right:-30px;top:-40px}.hero::after{width:90px;height:90px;right:70px;bottom:-40px;animation-delay:-3s}
+.hero button{background:#fff;color:#3b74e6;box-shadow:0 8px 18px rgba(30,60,140,.18)}
+label{display:block;font-size:12px;font-weight:600;color:var(--mu);margin:12px 0 5px}
+input,select,textarea{width:100%;padding:11px 12px;border:1.5px solid var(--br);border-radius:12px;background:#f8fbff;color:var(--tx);font:inherit;transition:border-color .2s,box-shadow .2s,background .2s}
+input:focus,select:focus,textarea:focus{outline:0;border-color:var(--pr);background:#fff;box-shadow:0 0 0 4px rgba(79,140,255,.16)}
+textarea{min-height:64px;resize:vertical}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+button{font:inherit;border:0;border-radius:12px;padding:10px 16px;background:linear-gradient(135deg,#5b9bff,#7cc4ff);color:#fff;font-weight:700;cursor:pointer;box-shadow:0 6px 14px rgba(79,140,255,.3);transition:transform .15s,box-shadow .2s,filter .2s}
+button:hover{transform:translateY(-1px);filter:brightness(1.04)}button:active{transform:scale(.96)}
+button.s{background:var(--pr2);color:#3b74e6;box-shadow:none}
+button.w{width:100%;padding:14px;margin-top:14px;font-size:15px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{padding:8px 13px;border:1.5px solid var(--br);border-radius:999px;background:#f8fbff;color:var(--tx);font-weight:600;font-size:13px;box-shadow:none}
+.chip:hover{border-color:var(--pr);background:var(--pr2)}
+.chip.on{background:linear-gradient(135deg,#5b9bff,#7cc4ff);color:#fff;border-color:transparent;animation:pop .35s;box-shadow:0 6px 12px rgba(79,140,255,.3)}
+.li{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 0;border-bottom:1px solid var(--br)}
+.li:last-child{border:0}.li small{color:var(--mu);display:block}
+.badge{font-size:11px;padding:4px 10px;border-radius:999px;font-weight:700;white-space:nowrap;border:0;box-shadow:none}
+.Menunggu{background:var(--wb);color:var(--wn)}.Dalam{background:var(--pr2);color:#3b74e6}.Selesai{background:var(--ob);color:var(--ok)}
+button.Menunggu,button.Dalam,button.Selesai{background:none}
+button.Menunggu{background:var(--wb)}button.Dalam{background:var(--pr2)}button.Selesai{background:var(--ob)}
+.Dalam::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:currentColor;margin-right:5px;animation:pulse 1.4s infinite}
+.alert{background:var(--db);color:var(--dg);border-radius:14px;padding:12px 14px;margin-top:12px;font-weight:700;font-size:14px;animation:shake .5s,glow 2s 1s infinite}
+.fu{border-left:3px solid #8fc0ff;background:#f6faff;border-radius:0 14px 14px 0;padding:6px 12px 12px;margin:14px 0;animation:pop .4s both}
+.bar{display:flex;align-items:center;gap:8px;margin:8px 0;font-size:13px}
+.bar i{display:block;height:14px;background:linear-gradient(90deg,#5b9bff,#9fdcff);border-radius:8px;min-width:4px;transform-origin:left;animation:grow .9s .2s cubic-bezier(.2,.8,.2,1) both}
+.bar span:first-child{width:104px;flex:none;color:var(--mu)}
+.tbl{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:13px}th,td{text-align:left;padding:9px 8px;border-bottom:1px solid var(--br);white-space:nowrap}th{color:var(--mu);font-weight:700}tr:hover td{background:#f4f8ff}
+nav{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(10px + env(safe-area-inset-bottom,0px));width:min(94%,520px);background:rgba(255,255,255,.88);backdrop-filter:blur(16px);border:1px solid #fff;border-radius:24px;box-shadow:0 14px 34px rgba(60,110,220,.22);display:flex;padding:6px;gap:2px;z-index:8;animation:navin .7s cubic-bezier(.2,.8,.2,1) both}
+nav button{flex:1;background:none;color:var(--mu);border-radius:18px;padding:8px 2px;font-size:10.5px;font-weight:700;box-shadow:none;transition:background .25s,color .25s}
+nav button:hover{filter:none;transform:none;background:#f1f6ff}
+nav button.on{background:var(--pr2);color:#3b74e6}nav button.on svg{animation:bounce .5s}
+nav svg{display:block;margin:0 auto 2px;width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.modal{position:fixed;inset:0;background:rgba(40,70,140,.35);backdrop-filter:blur(6px);z-index:20;overflow:auto;padding:14px;animation:fade .25s}
+.paper{background:#fff;color:#111;max-width:640px;margin:0 auto;padding:24px;border-radius:18px;font-size:13px;box-shadow:0 20px 50px rgba(30,60,140,.3);animation:up .45s cubic-bezier(.2,.8,.2,1)}
+.paper h1{font-size:16px;margin:0}.paper h4{margin:14px 0 4px;font-size:12px;border-bottom:1px solid #b9cdf0;padding-bottom:2px;letter-spacing:.5px;color:#2f5fc4}
+.paper p{margin:2px 0}.paper .doc{border:1px dashed #9db8e6;border-radius:8px;padding:6px;min-height:34px}
+.bt{display:flex;gap:8px;max-width:640px;margin:12px auto}.bt button{flex:1}
+details.card>summary{cursor:pointer;font-weight:700;list-style:none}details.card>summary::-webkit-details-marker{display:none}details.card>summary::after{content:"＋";float:right;color:var(--pr)}details[open].card>summary::after{content:"－"}.hint{display:block;color:var(--mu);font-size:12px;font-weight:500}
+@keyframes up{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@keyframes fade{from{opacity:0}}
+@keyframes pop{from{opacity:0;transform:scale(.92)}60%{transform:scale(1.04)}to{opacity:1;transform:none}}
+@keyframes grow{from{transform:scaleX(0)}}
+@keyframes float{50%{transform:translateY(-12px)}}
+@keyframes pulse{50%{opacity:.25;transform:scale(1.5)}}
+@keyframes shake{20%,60%{transform:translateX(-6px)}40%,80%{transform:translateX(6px)}}
+@keyframes glow{50%{box-shadow:0 0 0 6px rgba(214,69,69,.14)}}
+@keyframes bounce{40%{transform:translateY(-5px)}70%{transform:translateY(1px)}}
+@keyframes navin{from{opacity:0;transform:translate(-50%,40px)}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition:none!important}}
+@media print{body>*:not(#pdf){display:none!important}body::before{display:none}#pdf{position:static;background:none;padding:0;backdrop-filter:none}.bt{display:none}.paper{max-width:none;padding:0;box-shadow:none}}
+</style>
+</head>
+<body>
+<header><div class="brand"><div class="logo"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></div><div><b>GU Medical Record</b><small>Administrative Patient Management</small></div></div><span class="av">Admin 1</span></header>
+<main id="app"></main>
+<nav id="nav"></nav>
+<div id="pdf" class="modal" hidden></div>
+<script>
+const DOK=["Dokter 1","Dokter 2","Dokter 3"],KEL=[["freq","Frekuensi BAK meningkat"],["dis","Nyeri saat BAK"],["hes","Sulit memulai BAK"],["inc","BAK tidak tuntas"],["hem","Urine berdarah"],["fla","Nyeri pinggang"],["noc","BAK malam hari"],["ret","Urine sulit / tidak keluar"],["ker","Urine keruh / berbau"],["ink","Inkontinensia urine"],["ben","Benjolan genital"],["ngn","Nyeri genital"],["ere","Gangguan ereksi"],["urg","Urgensi BAK (sulit ditahan)"],["dri","Menetes setelah BAK"],["sup","Nyeri suprapubik"],["skr","Nyeri / bengkak skrotum"],["sek","Cairan / nanah dari uretra"],["hsp","Darah pada air mani"],["ejn","Nyeri saat ejakulasi"],["edi","Gangguan ejakulasi"],["lib","Penurunan libido"],["inf","Kesulitan punya anak"],["bat","Batu / urine berpasir"],["pne","Udara / feses pada urine"],["per","Nyeri perineum"],["pen","Kelainan penis / kulup"],["eno","Ngompol (enuresis)"],["kat","Masalah kateter"],["pol","BAK sangat banyak (poliuria)"],["lai","Keluhan lainnya"]];
+const dur=["d","Sejak kapan?","t"],yn="yn",
+Q={
+freq:[["b","Biasanya BAK berapa kali/hari?","n"],["s","Saat ini berapa kali/hari?","n"],["m","Mendadak?",yn],["nm","Frekuensi BAK malam juga meningkat?",yn],dur],
+dis:[["w","Nyeri terasa kapan?","o",["Awal","Pertengahan","Akhir","Sepanjang BAK"]],["k","Karakter nyeri","o",["Perih","Terbakar","Tajam","Lainnya"]],["sk","Skala nyeri (0-10)","n"],["ur","Disertai urgensi?",yn],["de","Disertai demam?",yn],dur],
+hes:[["a","Sulit memulai aliran?",yn],["e","Harus mengejan?",yn],["l","Aliran lemah?",yn],["t","Aliran terputus-putus?",yn],["tn","Terasa belum tuntas?",yn],dur],
+inc:[["a","Urine terasa masih tersisa?",yn],["b","Harus BAK lagi dalam waktu singkat?",yn],["e","Harus mengejan?",yn],["z","Pernah urine tidak keluar sama sekali?",yn]],
+hem:[["w","Warna urine","o",["Merah","Pink","Kecokelatan"]],["s","Darah terlihat kapan?","o",["Awal","Akhir","Sepanjang"]],["p","Pernah terjadi sebelumnya?",yn],["g","Ada gumpalan darah?",yn],["ny","Ada nyeri saat BAK?",yn],dur],
+fla:[["l","Lokasi","o",["Kanan","Kiri","Kedua sisi"]],["j","Menjalar?","o",["Tidak","Ke perut","Selangkangan","Lainnya"]],["k","Karakter","o",["Tumpul","Tajam","Kolik","Lainnya"]],["sk","Skala nyeri (0-10)","n"],["h","Pola","o",["Hilang timbul","Menetap"]],["mm","Mual / muntah?",yn],["de","Demam?",yn]],
+noc:[["b","Biasanya terbangun berapa kali?","n"],["s","Saat ini berapa kali?","n"],["g","Mengganggu tidur?",yn],dur],
+ret:[["a","Urine masih bisa keluar?",yn],["p","Rasa penuh / nyeri perut bawah?",yn],["k","Pernah dipasang kateter?",yn],["u","Pernah keluhan serupa?",yn],dur],
+ker:[["a","Urine tampak keruh?",yn],["b","Bau berbeda dari biasa?",yn],["ny","Disertai nyeri BAK?",yn],["de","Disertai demam?",yn],dur],
+ink:[["a","Urine keluar tanpa disadari?",yn],["b","Saat batuk/bersin/aktivitas?",yn],["c","Saat dorongan BAK sangat kuat?",yn],["f","Seberapa sering?","t"],["pd","Memakai pad?",yn],dur],
+ben:[["l","Lokasi benjolan","t"],["ny","Disertai nyeri?",yn],["u","Ukuran berubah?",yn],["m","Kemerahan?",yn],["de","Demam?",yn],["b","Muncul saat berdiri/mengejan?",yn],dur],
+ngn:[["l","Lokasi nyeri","t"],["sk","Skala nyeri (0-10)","n"],["k","Karakter","o",["Tumpul","Tajam","Berdenyut","Lainnya"]],["h","Pola","o",["Menetap","Hilang timbul"]],["bk","Ada pembengkakan?",yn],dur],
+ere:[["a","Sulit mendapatkan ereksi?",yn],["b","Sulit mempertahankan ereksi?",yn],["f","Setiap kali / kadang","o",["Setiap kali","Kadang-kadang"]],dur],
+urg:[["a","Dorongan BAK mendadak sulit ditahan?",yn],["b","Urine sempat keluar sebelum sampai toilet?",yn],["f","Berapa kali sehari?","n"],dur],
+dri:[["a","Urine menetes setelah selesai BAK?",yn],["b","Celana basah setelah BAK?",yn],dur],
+sup:[["sk","Skala nyeri (0-10)","n"],["h","Nyeri berkurang setelah BAK?",yn],["p","Perut bawah terasa penuh?",yn],["de","Demam?",yn],dur],
+skr:[["l","Sisi","o",["Kanan","Kiri","Kedua sisi"]],["m","Muncul mendadak?",yn],["sk","Skala nyeri (0-10)","n"],["bk","Ada pembengkakan?",yn],["de","Demam?",yn],["mu","Mual / muntah?",yn],dur],
+sek:[["w","Warna cairan","o",["Bening","Putih","Kuning","Kehijauan","Berdarah"]],["b","Berbau?",yn],["ny","Nyeri saat BAK?",yn],["de","Demam?",yn],dur],
+hsp:[["a","Air mani merah / kecokelatan?",yn],["f","Berapa kali terjadi?","n"],["ny","Disertai nyeri?",yn],dur],
+ejn:[["l","Lokasi nyeri","t"],["sk","Skala nyeri (0-10)","n"],["h","Setiap ejakulasi?",yn],dur],
+edi:[["k","Jenis","o",["Terlalu cepat","Terlambat","Tidak keluar","Ejakulasi retrograd"]],["w","Rata-rata waktu sebelum ejakulasi (menit)","n"],["s","Pola","o",["Setiap kali","Kadang-kadang"]],dur],
+lib:[["a","Hasrat menurun dibanding sebelumnya?",yn],["l","Disertai lemas / mudah lelah?",yn],["s","Ada stres / masalah pasangan?",yn],dur],
+inf:[["l","Lama program hamil (bulan)","n"],["a","Pernah analisis sperma?",yn],["p","Pernah punya anak sebelumnya?",yn],["p2","Pasangan sudah diperiksa?",yn]],
+bat:[["a","Pernah keluar batu / pasir saat BAK?",yn],["p","Pernah didiagnosis batu saluran kemih?",yn],["k","Nyeri kolik?",yn],dur],
+pne:[["a","Ada gelembung udara saat BAK?",yn],["b","Urine bercampur feses?",yn],["de","Demam?",yn],dur],
+per:[["l","Lokasi","t"],["sk","Skala nyeri (0-10)","n"],["d","Memburuk saat duduk lama?",yn],["bk","BAK ikut terganggu?",yn],dur],
+pen:[["k","Keluhan","o",["Kulup sulit ditarik","Kulup terjepit","Luka / lesi","Kemerahan / gatal","Penis melengkung","Ereksi nyeri lama"]],["ny","Nyeri?",yn],["sc","Ada sekret / bau?",yn],dur],
+eno:[["a","Ngompol saat tidur?",yn],["b","Sejak kecil?",yn],["f","Berapa kali per minggu?","n"],dur],
+kat:[["j","Jenis","o",["Kateter menetap","Kateter intermiten","Cystostomy"]],["t","Tanggal pasang terakhir","t"],["b","Tersumbat / bocor?",yn],["ny","Nyeri / berdarah?",yn],dur],
+pol:[["a","Volume urine sangat banyak?",yn],["h","Sering haus?",yn],["m","Minum banyak?",yn],dur],
+lai:[["t","Jelaskan keluhan","t"],dur]};
+const NEG=["Negatif","Trace","+1","+2","+3","+4"],CT={rp:"Riwayat penyakit",rk:"Kebiasaan",kl:"Riwayat keluarga",ro:"Riwayat obat",rt:"Riwayat tindakan / operasi",ra:"Riwayat alergi"},
+CH={rp:["Batu saluran kemih","ISK berulang","Penyakit ginjal","BPH / prostat membesar","Striktur uretra","Fimosis","Hernia inguinalis","Kanker urologi","Diabetes mellitus","Hipertensi","Penyakit jantung","Stroke / gangguan saraf","Asam urat","Kolesterol tinggi","Penyakit hati","TBC","Tidak ada"],
+rk:["Merokok","Alkohol","Kurang minum (<1,5 L/hari)","Banyak kopi / soda","Sering menahan BAK","Jarang olahraga","Duduk lama","Makanan asin / tinggi garam","Suplemen / jamu rutin","Tidak ada kebiasaan berisiko"],
+kl:["Penyakit ginjal","Batu saluran kemih","Kanker prostat","Kanker ginjal / kandung kemih","Diabetes","Hipertensi","Tidak ada"],
+ro:["Antibiotik","Alfa-blocker (tamsulosin dll)","5-ARI (finasteride / dutasteride)","Obat OAB (antikolinergik)","Pereda nyeri / NSAID","Antihipertensi","Antidiabetik / insulin","Antikoagulan / antiplatelet","Diuretik","Obat ereksi (PDE5)","Steroid","Herbal / jamu","Tidak ada"],
+rt:["Pasang kateter","Sistoskopi","ESWL","Ureteroskopi (URS)","PCNL / operasi batu","TURP / operasi prostat","Biopsi prostat","Sirkumsisi","Operasi hernia","DJ stent / nefrostomi","Operasi ginjal","Vasektomi","Tidak ada"],
+ra:["Tidak ada alergi","Penisilin","Sulfa","Sefalosporin","Kuinolon","NSAID / aspirin","Kontras iodium","Lateks","Makanan","Lainnya"],
+ims:["Tidak ada","Gonore","Klamidia","Sifilis","HIV","Herpes genital","HPV / kutil kelamin","Hepatitis B"]},
+RWQ=[["on","Awitan","o",["Mendadak","Bertahap"]],["jl","Perjalanan keluhan","o",["Membaik","Memburuk","Tetap"]],["ak","Mengganggu aktivitas?","o",["Ya","Tidak"]],["ob","Sudah pernah diobati?","o",["Belum","Ya, membaik","Ya, tidak membaik"]],["fk","Faktor pemberat","o",["Tidak ada","Banyak minum","Aktivitas fisik","Malam hari","Kopi / soda","Menahan BAK"]]],
+SXQ=[["ak","Aktivitas seksual","o",["Aktif","Tidak aktif"]],["pa","Pasangan","o",["Tetap","Lebih dari satu","Tidak ada"]],["kd","Penggunaan kondom","o",["Selalu","Kadang-kadang","Tidak pernah"]],["pk","Pasangan keluhan serupa?","o",["Ya","Tidak","Tidak tahu"]],["fs","Fungsi / kepuasan seksual terganggu?","o",["Ya","Tidak"]]],
+UA=[["wr","Warna","o",["Kuning jernih","Kuning pekat","Merah","Cokelat","Keruh"]],["kj","Kejernihan","o",["Jernih","Agak keruh","Keruh"]],["ph","pH","n"],["bj","Berat jenis","n"],["pr","Protein","o",NEG],["gl","Glukosa","o",NEG],["kt","Keton","o",NEG],["bl","Darah / Hb","o",NEG],["le","Leukosit esterase","o",NEG],["ni","Nitrit","o",["Negatif","Positif"]],["bi","Bilirubin","o",NEG],["ub","Urobilinogen","o",["Normal","Meningkat"]],["er","Eritrosit sedimen (/LPB)","n"],["lk","Leukosit sedimen (/LPB)","n"],["ba","Bakteri","o",["Negatif","+","++","+++"]],["kr","Kristal","o",["Tidak ada","Kalsium oksalat","Asam urat","Fosfat","Lainnya"]],["sl","Silinder","o",["Tidak ada","Hialin","Granular","Eritrosit","Leukosit"]],["ku","Kultur urine","o",["Tidak dilakukan","Steril","Ada pertumbuhan kuman"]]],
+BL=[["hb","Hemoglobin (g/dL)"],["lk","Leukosit (/µL)"],["tr","Trombosit (/µL)"],["ht","Hematokrit (%)"],["ur","Ureum (mg/dL)"],["kr","Kreatinin (mg/dL)"],["eg","eGFR (mL/mnt)"],["as","Asam urat (mg/dL)"],["gd","Gula darah (mg/dL)"],["ps","PSA total (ng/mL)"],["cr","CRP (mg/L)"]];
+const cg=k=>`<div id="g_${k}"><label>${CT[k]||"Riwayat IMS"}</label><div class="chips">${CH[k].map((o,i)=>`<button class="chip ${(F.ch[k]||[]).includes(o)?"on":""}" onclick="tc('${k}',${i})">${o}</button>`).join("")}</div></div>`;
+function tc(k,i){const a=F.ch[k]=F.ch[k]||[],o=CH[k][i],x=a.indexOf(o);if(x>=0)a.splice(x,1);else if(/^Tidak/.test(o))F.ch[k]=[o];else{F.ch[k]=a.filter(z=>!/^Tidak/.test(z));F.ch[k].push(o)}$("#g_"+k).outerHTML=cg(k)}
+const fi=(st,k,l,t,o)=>{const v=F[st][k]??"",h=`oninput="F.${st}['${k}']=this.value" onchange="F.${st}['${k}']=this.value"`;return`<div><label>${l}</label>`+(t==="o"?`<select ${h}><option value="">-</option>${o.map(x=>`<option ${x===v?"selected":""}>${x}</option>`).join("")}</select>`:`<input ${t==="d"?'type="date"':t==="n"?'inputmode="decimal"':""} value="${esc(v)}" ${h}>`)+"</div>"};
+function fk(t){document.querySelectorAll("#kc .chip").forEach(c=>c.style.display=c.textContent.toLowerCase().includes(t.toLowerCase())?"":"none")}
+function extra(v,p){const w=v.rw||{},c=v.ch||{},s=v.sx||{},l=v.lab||{},pp=(t,a)=>a?`<p>${t}: ${a}</p>`:"";
+let h=RWQ.map(x=>pp(x[1],esc(w[x[0]]))).join("");
+h+=Object.keys(CT).map(k=>{let a=(c[k]||[]).join(", ");if(k==="ra"&&!a)a=p.alergi;return pp(CT[k],esc(a||"-"))}).join("");
+if(s.ok==="Ya")h+="<h4>RIWAYAT KESEHATAN SEKSUAL</h4>"+SXQ.map(x=>pp(x[1],esc(s[x[0]]))).join("")+pp("Riwayat IMS",esc((c.ims||[]).join(", ")));
+const ul=UA.filter(x=>l["u_"+x[0]]).map(x=>x[1]+": <b>"+esc(l["u_"+x[0]])+"</b>").join(" · "),bl=BL.filter(x=>l["d_"+x[0]]).map(x=>x[1]+": <b>"+esc(l["d_"+x[0]])+"</b>").join(" · ");
+if(ul||bl)h+="<h4>HASIL LABORATORIUM"+(l.tgl?" ("+fd(l.tgl)+(l.sm?" · "+esc(l.sm):"")+")":"")+"</h4>"+pp("Urinalisis",ul)+pp("Darah",bl);
+return h}
+const $=s=>document.querySelector(s),esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const TODAY="2026-11-18",MN=["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
+const kn=k=>(KEL.find(x=>x[0]===k)||[])[1]||k,fd=d=>d.split("-").reverse().join("/");
+function seed(){const P=[["Pasien A","1975-04-12","Laki-laki"],["Pasien B","1988-09-03","Perempuan"],["Pasien C","1962-01-25","Laki-laki"],["Pasien D","1995-06-30","Laki-laki"]].map((p,i)=>({id:"GU-000"+(i+1),nama:p[0],nik:"",tgl:p[1],jk:p[2],alamat:"Bandar Lampung",telp:"0812000000"+i,kerja:"-",sts:"Menikah",alergi:i?"Tidak ada":"Penisilin",rp:"",ro:"",cat:"",aktif:true}));
+const V=[["2026-10-10","GU-0002",1,"Baru",["fla"],"Selesai"],["2026-10-14","GU-0003",0,"Baru",["hes","noc"],"Selesai"],["2026-10-22","GU-0004",2,"Baru",["ker"],"Selesai"],["2026-11-02","GU-0001",0,"Baru",["dis"],"Selesai"],["2026-11-05","GU-0003",0,"Kontrol",["hes"],"Selesai"],["2026-11-09","GU-0002",1,"Kontrol",["fla"],"Selesai"],["2026-11-12","GU-0004",2,"Kontrol",["ker"],"Selesai"],["2026-11-18","GU-0001",0,"Kontrol",["dis"],"Dalam pemeriksaan"],["2026-11-18","GU-0003",1,"Kontrol",["noc"],"Menunggu"]].map((v,i)=>({id:"VIS-2026-"+String(i+1).padStart(3,"0"),tgl:v[0],jam:"09:"+String(10+i*4),pid:v[1],dok:DOK[v[2]],jenis:v[3],kel:v[4],fu:{},rw:{},vt:{},status:v[5],admin:"Admin 1",rev:1}));
+return{P,V}}
+let D;try{D=JSON.parse(localStorage.getItem("gu_v1"))}catch(e){}D=D&&D.P?D:seed();
+const save=()=>{try{localStorage.setItem("gu_v1",JSON.stringify(D))}catch(e){}};
+const age=t=>{const a=new Date(t),n=new Date(TODAY);let y=n.getFullYear()-a.getFullYear();if(n<new Date(n.getFullYear(),a.getMonth(),a.getDate()))y--;return y};
+const P=id=>D.P.find(p=>p.id===id)||{};
+let view="dash",F=null,q="",mon="2026-11",PD=null;
+const NAV=[["dash",`<svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="2"/><rect x="14" y="3" width="7" height="5" rx="2"/><rect x="14" y="12" width="7" height="9" rx="2"/><rect x="3" y="16" width="7" height="5" rx="2"/></svg>`,"Home"],["pas",`<svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="4"/><path d="M2 21c0-4 3-6 7-6s7 2 7 6M17 4a4 4 0 010 8M22 21c0-3-2-5-4-5.5"/></svg>`,"Pasien"],["kun",`<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg>`,"Kunjungan"],["rek",`<svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>`,"Rekap"],["dok",`<svg viewBox="0 0 24 24"><path d="M6 3v6a4 4 0 008 0V3M10 13v2a5 5 0 0010 0v-2"/><circle cx="20" cy="11" r="2"/></svg>`,"Dokter"]];
+function go(v){view=v;if(v==="kun"&&!F)newVisit();render();scrollTo(0,0)}
+function render(){$("#nav").innerHTML=NAV.map(n=>`<button class="${view===n[0]?"on":""}" onclick="go('${n[0]}')"><span>${n[1]}</span>${n[2]}</button>`).join("");$("#app").innerHTML=({dash,pas,kun,rek,dok,pform})[view]();if(view==="kun")renderFU();anim()}
+function anim(){[...$("#app").children].forEach((c,i)=>c.style.animationDelay=i*70+"ms");document.querySelectorAll(".stat b").forEach(e=>{const n=+e.textContent;if(!n)return;let s=null;const f=t=>{s=s||t;const p=Math.min((t-s)/800,1);e.textContent=Math.round(n*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(f)};requestAnimationFrame(f)})}
+function nextStatus(id){const v=D.V.find(x=>x.id===id),o=["Menunggu","Dalam pemeriksaan","Selesai"];v.status=o[(o.indexOf(v.status)+1)%3];save();render()}
+const bd=s=>`<span class="badge ${s.split(" ")[0]}">${s}</span>`;
+function dash(){const t=D.V.filter(v=>v.tgl===TODAY),m=D.V.filter(v=>v.tgl.startsWith(mon));
+return`<div class="hero"><h1>Halo, Admin 1 👋</h1><p>Rabu, 18 November 2026 · ${t.length} kunjungan hari ini</p><button onclick="go('kun')">+ Kunjungan baru</button></div><div class="grid g3"><div class="stat"><b>${t.length}</b><span>Kunjungan hari ini</span></div><div class="stat"><b>${D.P.filter(p=>p.aktif).length}</b><span>Pasien aktif</span></div><div class="stat"><b>${m.length}</b><span>Kunjungan bulan ini</span></div></div>
+<div class="card" style="margin-top:12px"><b>Antrean hari ini</b><small style="color:var(--mu);display:block">Ketuk status untuk mengubah</small>${t.map(v=>`<div class="li"><div>${esc(P(v.pid).nama)}<small>${v.id} · ${v.dok} · ${v.kel.map(kn).join(", ")}</small></div><div style="display:flex;gap:6px;flex-direction:column;align-items:flex-end"><button class="badge ${v.status.split(" ")[0]}" onclick="nextStatus('${v.id}')">${v.status}</button><button class="s badge" onclick="showPDF('${v.id}')">PDF</button></div></div>`).join("")||"<p>Belum ada kunjungan.</p>"}</div>`}
+function pas(){const l=D.P.filter(p=>(p.nama+p.id+p.telp).toLowerCase().includes(q.toLowerCase()));
+return`<h2>Data Pasien Tetap</h2><input placeholder="Cari nama, ID, atau nomor telepon" value="${esc(q)}" oninput="q=this.value;pl()"><div class="card" style="margin-top:12px" id="pl">${plist(l)}</div><button class="w" onclick="PD=null;go('pform')">+ Pasien baru</button>`}
+const plist=l=>l.map(p=>{const vs=D.V.filter(v=>v.pid===p.id);return`<div class="li" style="align-items:flex-start"><div><b>${esc(p.nama)}</b> ${p.aktif?"":"<span class='badge Menunggu'>Nonaktif</span>"}<small>${p.id} · ${age(p.tgl)} th · ${p.jk} · ${esc(p.telp)}</small><small>Alergi: ${esc(p.alergi||"-")} · ${vs.length} kunjungan</small>${vs.slice(-2).reverse().map(v=>`<small>↳ ${fd(v.tgl)} ${v.dok} · ${v.kel.map(kn).join(", ")} <a href="#" onclick="showPDF('${v.id}');return false" style="color:var(--pr)">PDF</a></small>`).join("")}</div><div style="display:flex;flex-direction:column;gap:6px"><button onclick="newVisit('${p.id}');go('kun')">Kunjungan</button><button class="s" onclick="PD='${p.id}';go('pform')">Edit</button></div></div>`}).join("")||"<p>Tidak ditemukan.</p>";
+function pl(){$("#pl").innerHTML=plist(D.P.filter(p=>(p.nama+p.id+p.telp).toLowerCase().includes(q.toLowerCase())))}
+function pform(){const p=PD?P(PD):{jk:"Laki-laki",sts:"Belum menikah",aktif:true},f=(k,l,t="text")=>`<label>${l}</label><input id="f_${k}" type="${t}" value="${esc(p[k])}">`;
+return`<h2>${PD?"Edit pasien "+PD:"Pasien baru"}</h2><div class="card">${f("nama","Nama lengkap")}${f("nik","NIK (opsional)")}<div class="row"><div>${f("tgl","Tanggal lahir","date")}</div><div><label>Jenis kelamin</label><select id="f_jk">${["Laki-laki","Perempuan"].map(o=>`<option ${p.jk===o?"selected":""}>${o}</option>`).join("")}</select></div></div>${f("alamat","Alamat")}${f("telp","Nomor telepon","tel")}<div class="row"><div>${f("kerja","Pekerjaan")}</div><div><label>Status perkawinan</label><select id="f_sts">${["Belum menikah","Menikah","Lainnya"].map(o=>`<option ${p.sts===o?"selected":""}>${o}</option>`).join("")}</select></div></div>${f("alergi","Alergi (tulis Tidak ada jika tidak ada)")}${f("rp","Riwayat penyakit")}${f("ro","Riwayat obat")}${f("cat","Catatan khusus")}${PD?`<label>Status</label><select id="f_aktif"><option value="1" ${p.aktif?"selected":""}>Aktif</option><option value="0" ${p.aktif?"":"selected"}>Tidak aktif (riwayat tetap tersimpan)</option></select>`:""}<p id="dup"></p><button class="w" onclick="savePas()">Simpan pasien</button><button class="s w" onclick="go('pas')">Batal</button></div>`}
+function savePas(){const g=k=>$("#f_"+k).value.trim(),o={};["nama","nik","tgl","jk","alamat","telp","kerja","sts","alergi","rp","ro","cat"].forEach(k=>o[k]=g(k));
+if(!o.nama||!o.tgl){$("#dup").innerHTML='<span style="color:var(--dg)">Nama dan tanggal lahir wajib diisi.</span>';return}
+if(!PD){const d=D.P.find(p=>p.nama.toLowerCase()===o.nama.toLowerCase()&&p.tgl===o.tgl);if(d&&!confirm("Pasien dengan nama dan tanggal lahir sama sudah ada ("+d.id+"). Tetap simpan?"))return;
+o.id="GU-"+String(D.P.length+1).padStart(4,"0");o.aktif=true;D.P.push(o)}else{Object.assign(P(PD),o,{aktif:$("#f_aktif").value==="1"})}
+save();go("pas")}
+function newVisit(pid){F={pid:pid||D.P[0].id,dok:DOK[0],jenis:"Baru",kel:[],fu:{},rw:{},vt:{},ch:{},sx:{},lab:{}}}
+function kun(){const p=P(F.pid),r=(k,l)=>`<label>${l}</label><textarea oninput="F.rw['${k}']=this.value">${esc(F.rw[k])}</textarea>`,v=(k,l,u)=>`<div><label>${l} (${u})</label><input inputmode="decimal" value="${esc(F.vt[k])}" oninput="F.vt['${k}']=this.value"></div>`;
+return`<h2>Pendaftaran & Anamnesis</h2><div class="card"><label>Pasien</label><select onchange="F.pid=this.value;render()">${D.P.filter(x=>x.aktif).map(x=>`<option value="${x.id}" ${x.id===F.pid?"selected":""}>${x.id} · ${esc(x.nama)}</option>`).join("")}</select>
+<small style="color:var(--mu)">${age(p.tgl)} th · ${p.jk} · Alergi: ${esc(p.alergi||"-")}</small>
+<div class="row"><div><label>Dokter pemeriksa</label><select onchange="F.dok=this.value">${DOK.map(d=>`<option ${d===F.dok?"selected":""}>${d}</option>`).join("")}</select></div><div><label>Jenis kunjungan</label><select onchange="F.jenis=this.value"><option ${F.jenis==="Baru"?"selected":""}>Baru</option><option ${F.jenis==="Kontrol"?"selected":""}>Kontrol</option></select></div></div></div>
+<div class="card"><b>Keluhan utama</b><small style="color:var(--mu);display:block;margin-bottom:8px">Pilih gejala. Admin hanya mencatat, bukan mendiagnosis.</small><input placeholder="Cari keluhan…" oninput="fk(this.value)" style="margin-bottom:10px"><div class="chips" id="kc">${KEL.map(k=>`<button class="chip ${F.kel.includes(k[0])?"on":""}" onclick="tg('${k[0]}',this)">${k[1]}</button>`).join("")}</div><div id="rf"></div><div id="fu"></div></div>
+<div class="card"><b>Riwayat keluhan sekarang</b><div class="row">${RWQ.map(x=>fi("rw",x[0],x[1],x[2],x[3])).join("")}</div></div>
+<div class="card"><b>Riwayat penyakit & kebiasaan</b><small class="hint">Pilih semua yang sesuai</small>${cg("rp")}${cg("rk")}${cg("kl")}</div>
+<div class="card"><b>Riwayat obat & tindakan</b><small class="hint">Pilih semua yang sesuai</small>${cg("ro")}${cg("rt")}</div>
+<div class="card"><b>Riwayat alergi</b>${cg("ra")}</div>
+<details class="card" ${F.o1?"open":""} ontoggle="F.o1=this.open"><summary>Riwayat kesehatan seksual<span class="hint">Diisi bila relevan, boleh dikosongkan. Wajib dengan persetujuan pasien.</span></summary><div class="row">${fi("sx","ok","Pasien setuju bagian ini diisi?","o",["Ya","Tidak"])}${SXQ.map(x=>fi("sx",x[0],x[1],x[2],x[3])).join("")}</div>${cg("ims")}</details>
+<details class="card" ${F.o2?"open":""} ontoggle="F.o2=this.open"><summary>Hasil laboratorium<span class="hint">Bila tersedia. Salin sesuai lembar hasil, tanpa interpretasi.</span></summary><div class="row">${fi("lab","tgl","Tanggal pemeriksaan","d")}${fi("lab","sm","Sumber / laboratorium","t")}</div><h3>Urinalisis</h3><div class="row">${UA.map(x=>fi("lab","u_"+x[0],x[1],x[2],x[3])).join("")}</div><h3>Pemeriksaan darah</h3><div class="row">${BL.map(x=>fi("lab","d_"+x[0],x[1],"n")).join("")}</div></details>
+<div class="card"><b>Tanda vital</b> <small style="color:var(--mu)">(isi hanya jika diukur klinik)</small><div class="row">${v("td","Tekanan darah","mmHg")}${v("nd","Nadi","bpm")}${v("rr","RR","/menit")}${v("su","Suhu","°C")}${v("sp","SpO₂","%")}${v("bb","Berat","kg")}${v("tb","Tinggi","cm")}</div></div>
+<button class="w" onclick="saveVisit()">Simpan & buat PDF</button>`}
+function tg(k,b){const i=F.kel.indexOf(k);i<0?F.kel.push(k):F.kel.splice(i,1);b.classList.toggle("on");renderFU()}
+function renderFU(){if(!F)return;$("#fu").innerHTML=F.kel.map(k=>`<div class="fu"><b>${kn(k)}</b>${Q[k].map(([id,l,t,o])=>{const key=k+"_"+id,val=F.fu[key]??"",h=`oninput="F.fu['${key}']=this.value;chk()" onchange="F.fu['${key}']=this.value;chk()"`;
+return`<label>${l}</label>`+(t==="yn"||t==="o"?`<select ${h}><option value="">-</option>${(o||["Ya","Tidak"]).map(x=>`<option ${x===val?"selected":""}>${x}</option>`).join("")}</select>`:`<input ${t==="n"?'type="number" inputmode="numeric"':""} value="${esc(val)}" ${h}>`)}).join("")}</div>`).join("");chk()}
+function chk(){const a=[],f=F.fu,k=F.kel,pn=f.pen_k;
+if(k.includes("ret")&&(f.ret_a==="Tidak"||f.ret_p==="Ya"))a.push("Red flag: urine tidak keluar / nyeri perut bawah. Segera hubungi tenaga medis, jangan menunda pasien dengan formulir.");
+if(k.includes("hem")&&f.hem_g==="Ya")a.push("Ada gumpalan darah pada urine. Informasikan ke tenaga medis.");
+if(k.includes("skr")&&f.skr_m==="Ya"&&+f.skr_sk>=7)a.push("Nyeri skrotum mendadak dan berat. Segera hubungi tenaga medis.");
+if(k.includes("pen")&&(pn==="Kulup terjepit"||pn==="Ereksi nyeri lama"))a.push("Kelainan penis yang mungkin darurat. Segera hubungi tenaga medis.");
+$("#rf").innerHTML=a.map(t=>`<div class="alert">⚠ ${t}</div>`).join("")}
+function saveVisit(){if(!F.kel.length){alert("Pilih minimal satu keluhan utama.");return}
+const n=D.V.length+1,id="VIS-2026-"+String(n).padStart(3,"0"),t=new Date();
+D.V.push({id,tgl:TODAY,jam:String(t.getHours()).padStart(2,"0")+":"+String(t.getMinutes()).padStart(2,"0"),pid:F.pid,dok:F.dok,jenis:F.jenis,kel:F.kel,fu:F.fu,rw:F.rw,vt:F.vt,ch:F.ch,sx:F.sx,lab:F.lab,status:"Menunggu",admin:"Admin 1",rev:1});save();F=null;view="dash";render();showPDF(id)}
+function showPDF(id,regen){const v=D.V.find(x=>x.id===id),p=P(v.pid);if(regen){v.rev++;save()}
+const fu=v.kel.map(k=>`<p><b>${kn(k)}</b></p>`+Q[k].filter(x=>v.fu[k+"_"+x[0]]).map(x=>`<p>- ${x[1]} <b>${esc(v.fu[k+"_"+x[0]])}</b></p>`).join("")).join(""),
+rw=x=>v.rw[x]?esc(v.rw[x]):"-",vt=v.vt,fn="GU_"+v.tgl.replace(/-/g,"")+"_"+v.id.replace("2026-","")+".pdf";
+$("#pdf").hidden=false;$("#pdf").innerHTML=`<div class="paper"><h1>REKAM MEDIS – GENITOURINARY</h1><p>Dokumen anamnesis pasien untuk pemeriksaan dokter · Rev ${v.rev}</p>
+<h4>IDENTITAS PASIEN</h4><p>ID: ${p.id} · Nama: ${esc(p.nama)}</p><p>Umur: ${age(p.tgl)} th · ${p.jk} · Telp: ${esc(p.telp)}</p><p>Alamat: ${esc(p.alamat)}</p>
+<h4>INFORMASI KUNJUNGAN</h4><p>${v.id} · ${fd(v.tgl)} ${v.jam} · ${v.jenis}</p><p>Dokter: ${v.dok} · Admin penginput: ${v.admin}</p>
+<h4>KELUHAN UTAMA</h4><p>${v.kel.map(kn).join(", ")}</p>
+<h4>ANAMNESIS</h4>${fu}${extra(v,p)}
+<h4>TANDA VITAL</h4><p>TD ${vt.td||"-"} mmHg · Nadi ${vt.nd||"-"} · RR ${vt.rr||"-"} · Suhu ${vt.su||"-"} °C · SpO₂ ${vt.sp||"-"}% · BB/TB ${vt.bb||"-"}/${vt.tb||"-"}</p>
+<h4>CATATAN DOKTER (diisi dokter)</h4><p>Diagnosis</p><div class="doc"></div><p>Pemeriksaan penunjang</p><div class="doc"></div><p>Tatalaksana</p><div class="doc"></div><p>Rencana kontrol</p><div class="doc"></div>
+<p style="margin-top:12px;color:#666;font-size:11px">Dibuat: ${fd(TODAY)} · ${fn}</p></div>
+<div class="bt"><button class="s" onclick="$('#pdf').hidden=true">Tutup</button><button class="s" onclick="showPDF('${id}',1)">Buat ulang (revisi)</button><button onclick="try{print()}catch(e){alert('Gunakan menu cetak browser')}">Cetak / Simpan PDF</button></div>`}
+function mf(){const [y,m]=mon.split("-");return`<div class="row"><div><label>Bulan</label><select onchange="mon=this.value.slice(0,0)||mon.slice(0,5)+this.value;render()">${MN.map((n,i)=>`<option value="${String(i+1).padStart(2,"0")}" ${+m===i+1?"selected":""}>${n}</option>`).join("")}</select></div><div><label>Tahun</label><select onchange="mon=this.value+mon.slice(4);render()">${[2025,2026,2027].map(t=>`<option ${t==y?"selected":""}>${t}</option>`).join("")}</select></div></div>`}
+const bars=(a,mx)=>a.map(([l,n])=>`<div class="bar"><span>${l}</span><i style="width:${n/Math.max(mx,1)*55}%"></i><b>${n}</b></div>`).join("");
+function stats(m){const seen=new Set();D.V.filter(v=>v.tgl<mon+"-01").forEach(v=>seen.add(v.pid));
+const baru=new Set(m.filter(v=>v.jenis==="Baru").map(v=>v.pid)),uniq=new Set(m.map(v=>v.pid));return{baru:baru.size,lama:[...uniq].filter(x=>!baru.has(x)).length,uniq:uniq.size,sel:m.filter(v=>v.status==="Selesai").length}}
+function rek(){const m=D.V.filter(v=>v.tgl.startsWith(mon)).sort((a,b)=>a.tgl<b.tgl?-1:1),s=stats(m),wk=[1,2,3,4,5].map(w=>["Minggu "+w,m.filter(v=>Math.ceil(+v.tgl.slice(8)/7)===w).length]),kc={};m.forEach(v=>v.kel.forEach(k=>kc[kn(k)]=(kc[kn(k)]||0)+1));
+return`<h2>Rekap Bulanan</h2>${mf()}<div class="grid g3" style="margin-top:12px"><div class="stat"><b>${m.length}</b><span>Total kunjungan</span></div><div class="stat"><b>${s.uniq}</b><span>Pasien unik</span></div><div class="stat"><b>${s.baru}</b><span>Pasien baru</span></div><div class="stat"><b>${s.lama}</b><span>Pasien lama</span></div><div class="stat"><b>${s.sel}</b><span>Selesai</span></div><div class="stat"><b>${m.length-s.sel}</b><span>Belum selesai</span></div></div>
+<div class="card" style="margin-top:12px"><b>Kunjungan per minggu</b>${bars(wk,Math.max(...wk.map(x=>x[1])))}</div>
+<div class="card"><b>Keluhan utama</b>${bars(Object.entries(kc).sort((a,b)=>b[1]-a[1]),Math.max(0,...Object.values(kc)))||""}${m.length?"":"<p>Tidak ada data.</p>"}</div>
+<div class="card tbl"><b>Tabel kunjungan</b><small style="color:var(--mu);display:block">Nama pasien tidak ditampilkan pada rekap umum.</small><table><tr><th>Tanggal</th><th>ID Pasien</th><th>Dokter</th><th>Keluhan</th><th>Status</th></tr>${m.map(v=>`<tr><td>${fd(v.tgl)}</td><td>${v.pid}</td><td>${v.dok}</td><td>${v.kel.map(kn).join(", ")}</td><td>${v.status}</td></tr>`).join("")}</table></div>`}
+function dok(){const m=D.V.filter(v=>v.tgl.startsWith(mon)),rows=DOK.map(d=>{const x=m.filter(v=>v.dok===d);return{d,t:x.length,u:new Set(x.map(v=>v.pid)).size,b:x.filter(v=>v.jenis==="Baru").length,k:x.filter(v=>v.jenis==="Kontrol").length,s:x.filter(v=>v.status==="Selesai").length}});
+return`<h2>Rekap per Dokter</h2>${mf()}<div class="card tbl" style="margin-top:12px"><table><tr><th>Dokter</th><th>Total</th><th>Pasien unik</th><th>Baru</th><th>Kontrol</th><th>Selesai</th><th>Belum</th></tr>${rows.map(r=>`<tr><td>${r.d}</td><td>${r.t}</td><td>${r.u}</td><td>${r.b}</td><td>${r.k}</td><td>${r.s}</td><td>${r.t-r.s}</td></tr>`).join("")}</table></div>
+<div class="card"><b>Kunjungan per dokter</b>${bars(rows.map(r=>[r.d,r.t]),Math.max(...rows.map(r=>r.t)))}</div><p style="color:var(--mu);font-size:12px">Rekap bersifat administratif, bukan penilaian kinerja klinis dokter.</p>`}
+render();
+</script>
+</body>
+</html>
